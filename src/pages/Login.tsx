@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import LoginComponent from '../components/login';
+import { History } from 'history';
 
 export type IInput = {
   username: string;
   password: string;
 };
 
-const Login = () => {
+const Login = ({ history }: { history: History }) => {
   const [input, setInput] = useState<IInput>({
     username: '',
     password: '',
@@ -21,7 +22,10 @@ const Login = () => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    alert(JSON.stringify(input));
+    if (input.username === 'admin' && input.password === 'admin') {
+      localStorage.setItem('token', 'testtoken');
+      history.push('/dashboard');
+    }
   };
 
   return (
