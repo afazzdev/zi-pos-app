@@ -29,7 +29,8 @@ const LoginComponent = () => {
       container
       alignItems='center'
       justify='center'
-      className={classes.container}>
+      className={classes.container}
+    >
       <Grid item xs md={4}>
         <Paper className={classes.card}>
           <form onSubmit={handleSubmit}>
