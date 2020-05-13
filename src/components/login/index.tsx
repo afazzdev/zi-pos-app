@@ -1,28 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid, Paper, Typography, TextField, Button } from '@material-ui/core';
 import LoginStyles from './style';
+import { IInput } from '../../pages/Login';
 
-type IInput = {
-  username: string;
-  password: string;
+type IProps = {
+  handleInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (e: React.SyntheticEvent) => void;
+  input: IInput;
 };
 
-const LoginComponent = () => {
+const LoginComponent = ({ handleInput, handleSubmit, input }: IProps) => {
   const classes = LoginStyles();
-  const [input, setInput] = useState<IInput>({
-    username: '',
-    password: '',
-  });
-
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setInput({
-      [e.currentTarget.name]: e.currentTarget.value,
-    } as Pick<IInput, keyof IInput>);
-  };
-
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-  };
 
   return (
     <Grid
