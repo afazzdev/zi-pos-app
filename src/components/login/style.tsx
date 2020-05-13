@@ -6,8 +6,14 @@ const LoginStyles = makeStyles((theme: Theme) => ({
     height: '100vh',
   },
   card: {
-    minHeight: 400,
     padding: '2rem',
+    textAlign: 'center',
+  },
+  textField: {
+    marginTop: '1rem',
+  },
+  button: {
+    marginTop: '1rem',
   },
 }));
 

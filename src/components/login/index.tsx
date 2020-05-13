@@ -19,21 +19,35 @@ const LoginComponent = ({ handleInput, handleSubmit, input }: IProps) => {
       justify='center'
       className={classes.container}
     >
-      <Grid item xs md={4}>
+      <Grid item style={{ maxWidth: 250 }}>
         <Paper className={classes.card}>
           <form onSubmit={handleSubmit}>
             <Typography variant='h4'>Login</Typography>
-            <TextField
-              name='username'
-              value={input.username}
-              onChange={handleInput}
-            />
-            <TextField
-              name='password'
-              value={input.password}
-              onChange={handleInput}
-            />
-            <Button type='submit'>Submit</Button>
+            <div>
+              <TextField
+                fullWidth
+                name='username'
+                value={input.username}
+                onChange={handleInput}
+                className={classes.textField}
+              />
+              <TextField
+                fullWidth
+                name='password'
+                value={input.password}
+                onChange={handleInput}
+                className={classes.textField}
+              />
+              <Button
+                fullWidth
+                type='submit'
+                variant='contained'
+                color='primary'
+                className={classes.button}
+              >
+                Submit
+              </Button>
+            </div>
           </form>
         </Paper>
       </Grid>
