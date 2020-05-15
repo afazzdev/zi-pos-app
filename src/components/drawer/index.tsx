@@ -1,15 +1,20 @@
 import React, { Fragment } from 'react';
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import DrawerMaterial from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-// import InboxIcon from '@material-ui/icons/MoveToInbox';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-// import StarBorder from '@material-ui/icons/StarBorder';
+import {
+  createStyles,
+  Theme,
+  makeStyles,
+  styled,
+} from '@material-ui/core/styles';
+import {
+  Link as MaterialLink,
+  Drawer as DrawerMaterial,
+  List,
+  ListItem,
+  ListItemText,
+  Collapse,
+  ListItemIcon,
+} from '@material-ui/core';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { useDrawerContext, IDrawer } from '../../contexts/drawerContext';
 import { ISideRoutes } from '../../data/sideRoutes';
@@ -39,12 +44,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const NormalizedLink = styled((props) => (
+  <MaterialLink component={Link} {...props} />
+))({
+  textDecoration: 'none',
+  color: 'black',
+  textTransform: 'uppercase',
+});
+
 const Drawer = ({ width, sidebar }: IProps) => {
   const classes = useStyles({ width });
   const [open, setOpen] = useDrawerContext();
 
   const handleClick = (name: string): any => () => {
-    console.log(name);
+    // console.log(name);
     return setOpen({ ...open, [name]: !open[name] } as IDrawer);
   };
 
@@ -67,10 +80,11 @@ const Drawer = ({ width, sidebar }: IProps) => {
           return (
             <Fragment key={el.name}>
               <ListItem button onClick={handleClick(el.name)}>
-                {/* <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon> */}
-                <ListItemText primary={el.name} />
+                {el.icon && <ListItemIcon>{el.icon}</ListItemIcon>}
+                <ListItemText
+                  primary={el.name}
+                  primaryTypographyProps={{ variant: 'button' }}
+                />
                 {open[el.name] ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
               {el.children && (
@@ -82,12 +96,17 @@ const Drawer = ({ width, sidebar }: IProps) => {
                       timeout='auto'
                       unmountOnExit
                     >
-                      <List component={Link} to={el2.path} disablePadding>
+                      <List
+                        component={NormalizedLink}
+                        to={el2.path}
+                        disablePadding
+                      >
                         <ListItem button className={classes.nested}>
-                          {/* <ListItemIcon>
-                            <StarBorder />
-                          </ListItemIcon> */}
-                          <ListItemText primary={el2.name} />
+                          {el2.icon && <ListItemIcon>{el2.icon}</ListItemIcon>}
+                          <ListItemText
+                            primary={el2.name}
+                            primaryTypographyProps={{ variant: 'body2' }}
+                          />
                         </ListItem>
                       </List>
                     </Collapse>
