@@ -1,20 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import _ from 'lodash';
 import { createCtx } from './createCtx';
+import { useSideRoutesContext } from './sideRoutes';
 
 export interface IDrawer {
-  transaction: boolean;
-  cashier: boolean;
-  [key: string]: boolean;
+  [key: string]: boolean | undefined;
 }
 
-const defaultValue = {
-  transaction: false,
-  cashier: false,
-};
+type IDefaultValue = { [key: string]: boolean };
 
-const [ctx, DrawerContextProvider] = createCtx<IDrawer>(defaultValue);
+const [ctx, DrawerContextProvider] = createCtx<IDrawer>({});
 export const useDrawerContext = () => {
+  const [sideRoutes] = useSideRoutesContext();
   const { state, update } = useContext(ctx);
+
+  useEffect(() => {
+    const defaultVal = _.reduce(
+      sideRoutes,
+      (arr, val) => {
+        arr[val.name] = false;
+        return arr;
+      },
+      {} as IDefaultValue
+    );
+
+    update(defaultVal as IDefaultValue);
+  }, [sideRoutes, update]);
+
   return [state, update] as const;
 };
 

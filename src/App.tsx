@@ -3,14 +3,17 @@ import { BrowserRouter } from 'react-router-dom';
 import IndexStyles from './styles';
 import Routes from './routes';
 import DrawerProvider from './contexts/drawerContext';
+import SideRoutesProvider from './contexts/sideRoutes';
 
 function App() {
   return (
     <BrowserRouter>
       <IndexStyles>
-        <DrawerProvider>
-          <Routes />
-        </DrawerProvider>
+        <SideRoutesProvider>
+          <DrawerProvider>
+            <Routes />
+          </DrawerProvider>
+        </SideRoutesProvider>
       </IndexStyles>
     </BrowserRouter>
   );
