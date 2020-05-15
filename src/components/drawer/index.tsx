@@ -1,25 +1,22 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import DrawerMaterial from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+// import InboxIcon from '@material-ui/icons/MoveToInbox';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+// import StarBorder from '@material-ui/icons/StarBorder';
+import { Link } from 'react-router-dom';
+import { useDrawerContext, IDrawer } from '../../contexts/drawerContext';
 
 type IPropsWidth = { width: number };
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      display: 'flex',
-    },
-    appBar: ({ width }: IPropsWidth) => ({
-      width: `calc(100% - ${width}px)`,
-      marginLeft: width,
-    }),
     drawer: ({ width }: IPropsWidth) => ({
       width: width,
       flexShrink: 0,
@@ -29,16 +26,54 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
-    content: {
-      flexGrow: 1,
-      backgroundColor: theme.palette.background.default,
-      padding: theme.spacing(3),
+    nested: {
+      paddingLeft: theme.spacing(4),
     },
   })
 );
 
+const sidebar = {
+  transaction: {
+    name: 'transaction',
+    children: {
+      buy: {
+        name: 'buy',
+        path: '/buy',
+      },
+      sell: {
+        name: 'sell',
+        path: '/sell',
+      },
+    },
+  },
+  cashier: {
+    name: 'cashier',
+    children: {
+      member: {
+        name: 'cashier-names',
+        path: '/cashier-names',
+      },
+      owner: {
+        name: 'owner',
+        path: '/owner',
+      },
+    },
+  },
+};
+
 const Drawer = ({ width }: IPropsWidth) => {
   const classes = useStyles({ width });
+  const [open, setOpen] = useDrawerContext();
+
+  const handleClick = (name: string): any => () => {
+    console.log(name);
+    return setOpen({ ...open, [name]: !open[name] } as IDrawer);
+  };
+
+  // React.useEffect(() => {
+  //   console.log(open);
+  // }, [open]);
+
   return (
     <>
       <DrawerMaterial
@@ -50,28 +85,40 @@ const Drawer = ({ width }: IPropsWidth) => {
         anchor='left'
       >
         <div className={classes.toolbar} />
-        <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+        {Object.values(sidebar).map((el) => {
+          return (
+            <Fragment key={el.name}>
+              <ListItem button onClick={handleClick(el.name)}>
+                {/* <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon> */}
+                <ListItemText primary={el.name} />
+                {open[el.name] ? <ExpandLess /> : <ExpandMore />}
+              </ListItem>
+              {el.children && (
+                <List>
+                  {Object.values(el.children).map((el2) => (
+                    <Collapse
+                      key={el2.name}
+                      in={open[el.name]}
+                      timeout='auto'
+                      unmountOnExit
+                    >
+                      <List component={Link} to={el2.path} disablePadding>
+                        <ListItem button className={classes.nested}>
+                          {/* <ListItemIcon>
+                            <StarBorder />
+                          </ListItemIcon> */}
+                          <ListItemText primary={el2.name} />
+                        </ListItem>
+                      </List>
+                    </Collapse>
+                  ))}
+                </List>
+              )}
+            </Fragment>
+          );
+        })}
       </DrawerMaterial>
     </>
   );
