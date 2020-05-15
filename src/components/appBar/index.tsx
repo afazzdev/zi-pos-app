@@ -5,6 +5,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 type IPropsWidth = { width: number };
+type IProps = {
+  width: IPropsWidth['width'];
+  children?: React.ReactChild;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,14 +19,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const AppBar = ({ width }: IPropsWidth) => {
+const AppBar = ({ width, children }: IProps) => {
   const classes = useStyles({ width });
   return (
     <>
       <AppBarMaterial position='fixed' className={classes.appBarMaterial}>
         <Toolbar>
           <Typography variant='h6' noWrap>
-            Permanent drawer
+            {children}
           </Typography>
         </Toolbar>
       </AppBarMaterial>
