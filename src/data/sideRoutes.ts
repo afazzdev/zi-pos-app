@@ -1,13 +1,18 @@
+import { createElement, ReactNode } from 'react';
+import { Store, ShoppingCart, Receipt } from '@material-ui/icons';
+
 export type ISideRoutesChildren = {
   [key: string]: {
     name: string;
     path: string;
+    icon?: ReactNode;
   };
 };
 
 export type ISideRoutes = {
   [key: string]: {
     name: string;
+    icon?: ReactNode;
     children?: ISideRoutesChildren;
   };
 };
@@ -15,14 +20,17 @@ export type ISideRoutes = {
 export const sideRoutes: ISideRoutes = {
   transaction: {
     name: 'transaction',
+    icon: createElement(Store),
     children: {
       buy: {
         name: 'buy',
         path: '/dashboard/buy',
+        icon: createElement(ShoppingCart),
       },
       sell: {
         name: 'sell',
         path: '/dashboard/sell',
+        icon: createElement(Receipt),
       },
     },
   },
