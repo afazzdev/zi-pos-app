@@ -12,8 +12,15 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 // import StarBorder from '@material-ui/icons/StarBorder';
 import { Link } from 'react-router-dom';
 import { useDrawerContext, IDrawer } from '../../contexts/drawerContext';
+import { ISideRoutes } from '../../data/sideRoutes';
 
 type IPropsWidth = { width: number };
+
+type IProps = {
+  width: IPropsWidth['width'];
+  sidebar: ISideRoutes;
+  children?: React.ReactChild;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,36 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const sidebar = {
-  transaction: {
-    name: 'transaction',
-    children: {
-      buy: {
-        name: 'buy',
-        path: '/buy',
-      },
-      sell: {
-        name: 'sell',
-        path: '/sell',
-      },
-    },
-  },
-  cashier: {
-    name: 'cashier',
-    children: {
-      member: {
-        name: 'cashier-names',
-        path: '/cashier-names',
-      },
-      owner: {
-        name: 'owner',
-        path: '/owner',
-      },
-    },
-  },
-};
-
-const Drawer = ({ width }: IPropsWidth) => {
+const Drawer = ({ width, sidebar }: IProps) => {
   const classes = useStyles({ width });
   const [open, setOpen] = useDrawerContext();
 

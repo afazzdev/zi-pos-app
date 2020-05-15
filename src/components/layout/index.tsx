@@ -3,6 +3,12 @@ import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '../drawer';
 import AppBar from '../appBar';
+import { ISideRoutes } from '../../data/sideRoutes';
+
+type ILayoutProps = {
+  children: React.ReactNode;
+  sidebar: ISideRoutes;
+};
 
 const drawerWidth = 240;
 
@@ -10,14 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
-    },
-    appBar: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
     },
     drawerPaper: {
       width: drawerWidth,
@@ -32,14 +30,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function Layout({ children }: { children: React.ReactChild }) {
+function Layout({ children, sidebar }: ILayoutProps) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar width={drawerWidth} />
-      <Drawer width={drawerWidth} />
+      <Drawer width={drawerWidth} sidebar={sidebar} />
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {children}

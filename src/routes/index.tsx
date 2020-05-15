@@ -10,7 +10,7 @@ const Routes = () => {
         <Route
           exact
           path='/'
-          component={() => (
+          render={() => (
             <div>
               <Link to='/dashboard'>Dashboard</Link>>
             </div>
