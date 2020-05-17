@@ -1,7 +1,9 @@
 import React from 'react';
-
+// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 const DashboardHome = () => {
-  return <div>Dashboard Home</div>;
+  const [t] = useTranslation();
+  return <div>{t('app.title')}</div>;
 };
 
 export default DashboardHome;
