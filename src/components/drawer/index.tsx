@@ -1,13 +1,6 @@
 import React, { Fragment } from 'react';
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import {
-  createStyles,
-  Theme,
-  makeStyles,
-  styled,
-  TypographyVariant,
-} from '@material-ui/core/styles';
-import {
-  Link as MaterialLink,
   Drawer as DrawerMaterial,
   List,
   ListItem,
@@ -16,9 +9,9 @@ import {
   ListItemIcon,
 } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
 import { useDrawerContext, IDrawer } from '../../contexts/drawerContext';
 import { ISideRoutes } from '../../data/sideRoutes';
+import { ListChild } from '../list';
 
 type IPropsWidth = { width: number };
 
@@ -44,39 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
-const NormalizedLink = styled((props) => (
-  <MaterialLink component={Link} {...props} />
-))({
-  textDecoration: 'none',
-  color: 'black',
-  textTransform: 'uppercase',
-  '&:hover': {
-    textDecoration: 'none',
-  },
-});
-
-const ListChild = ({
-  name,
-  path,
-  icon,
-  variant,
-}: {
-  name: string;
-  path: string;
-  icon: React.ReactNode;
-  variant: TypographyVariant;
-}) => {
-  const classes = useStyles({ width: 0 });
-  return (
-    <List component={NormalizedLink} to={path} disablePadding>
-      <ListItem button className={classes.nested} disableRipple>
-        {icon && <ListItemIcon>{icon}</ListItemIcon>}
-        <ListItemText primary={name} primaryTypographyProps={{ variant }} />
-      </ListItem>
-    </List>
-  );
-};
 
 const Drawer = ({ width, sidebar }: IProps) => {
   const classes = useStyles({ width });
