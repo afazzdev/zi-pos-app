@@ -9,23 +9,34 @@ export interface IDrawer {
 
 type IDefaultValue = { [key: string]: boolean };
 
+const sidebar = localStorage.getItem('sidebar');
+
 const [ctx, DrawerContextProvider] = createCtx<IDrawer>({});
 export const useDrawerContext = () => {
   const [sideRoutes] = useSideRoutesContext();
   const { state, update } = useContext(ctx);
 
   useEffect(() => {
-    const defaultVal = reduce(
-      sideRoutes,
-      (arr, val) => {
-        arr[val.name] = false;
-        return arr;
-      },
-      {} as IDefaultValue
-    );
+    let defaultVal;
+    if (sidebar) {
+      defaultVal = JSON.parse(sidebar || '');
+    } else {
+      defaultVal = reduce(
+        sideRoutes,
+        (arr, val) => {
+          arr[val.name] = false;
+          return arr;
+        },
+        {} as IDefaultValue
+      );
+    }
 
     update(defaultVal as IDefaultValue);
   }, [sideRoutes, update]);
+
+  useEffect(() => {
+    localStorage.setItem('sidebar', JSON.stringify(state));
+  }, [state]);
 
   return [state, update] as const;
 };

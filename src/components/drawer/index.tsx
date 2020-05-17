@@ -66,6 +66,7 @@ const Drawer = ({ width, sidebar }: IProps) => {
           if (!el.children && el.path) {
             return (
               <ListChild
+                key={el.name}
                 name={el.name}
                 path={el.path}
                 icon={el.icon}
