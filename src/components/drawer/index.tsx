@@ -4,6 +4,7 @@ import {
   Theme,
   makeStyles,
   styled,
+  TypographyVariant,
 } from '@material-ui/core/styles';
 import {
   Link as MaterialLink,
@@ -50,7 +51,32 @@ const NormalizedLink = styled((props) => (
   textDecoration: 'none',
   color: 'black',
   textTransform: 'uppercase',
+  '&:hover': {
+    textDecoration: 'none',
+  },
 });
+
+const ListChild = ({
+  name,
+  path,
+  icon,
+  variant,
+}: {
+  name: string;
+  path: string;
+  icon: React.ReactNode;
+  variant: TypographyVariant;
+}) => {
+  const classes = useStyles({ width: 0 });
+  return (
+    <List component={NormalizedLink} to={path} disablePadding>
+      <ListItem button className={classes.nested} disableRipple>
+        {icon && <ListItemIcon>{icon}</ListItemIcon>}
+        <ListItemText primary={name} primaryTypographyProps={{ variant }} />
+      </ListItem>
+    </List>
+  );
+};
 
 const Drawer = ({ width, sidebar }: IProps) => {
   const classes = useStyles({ width });
@@ -77,9 +103,19 @@ const Drawer = ({ width, sidebar }: IProps) => {
       >
         <div className={classes.toolbar} />
         {Object.values(sidebar).map((el) => {
+          if (!el.children && el.path) {
+            return (
+              <ListChild
+                name={el.name}
+                path={el.path}
+                icon={el.icon}
+                variant='button'
+              />
+            );
+          }
           return (
             <Fragment key={el.name}>
-              <ListItem button onClick={handleClick(el.name)}>
+              <ListItem button onClick={handleClick(el.name)} disableRipple>
                 {el.icon && <ListItemIcon>{el.icon}</ListItemIcon>}
                 <ListItemText
                   primary={el.name}
@@ -96,19 +132,12 @@ const Drawer = ({ width, sidebar }: IProps) => {
                       timeout='auto'
                       unmountOnExit
                     >
-                      <List
-                        component={NormalizedLink}
-                        to={el2.path}
-                        disablePadding
-                      >
-                        <ListItem button className={classes.nested}>
-                          {el2.icon && <ListItemIcon>{el2.icon}</ListItemIcon>}
-                          <ListItemText
-                            primary={el2.name}
-                            primaryTypographyProps={{ variant: 'body2' }}
-                          />
-                        </ListItem>
-                      </List>
+                      <ListChild
+                        name={el2.name}
+                        path={el2.path}
+                        icon={el2.icon}
+                        variant='body2'
+                      />
                     </Collapse>
                   ))}
                 </List>
