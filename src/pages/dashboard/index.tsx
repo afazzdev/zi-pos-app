@@ -1,7 +1,8 @@
 import React from 'react';
-import Layout from '../components/layout';
-import { Route, Switch } from 'react-router-dom';
-import { useSideRoutesContext } from '../contexts/sideRoutes';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import DashboardHome from './Dashboard';
+import Layout from '../../components/layout';
+import { useSideRoutesContext } from '../../contexts/sideRoutes';
 
 const Dashboard = () => {
   const [sidebar] = useSideRoutesContext();
@@ -15,6 +16,8 @@ const Dashboard = () => {
           render={() => <div>cashier-names</div>}
         />
         <Route path='/dashboard/owner' render={() => <div>owner</div>} />
+        <Route exact path='/dashboard' render={DashboardHome} />
+        <Redirect to='/dashboard' />
       </Switch>
     </Layout>
   );
