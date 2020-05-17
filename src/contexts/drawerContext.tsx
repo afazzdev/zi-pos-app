@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import _ from 'lodash';
+import { reduce } from 'lodash';
 import { createCtx } from './createCtx';
 import { useSideRoutesContext } from './sideRoutes';
 
@@ -15,7 +15,7 @@ export const useDrawerContext = () => {
   const { state, update } = useContext(ctx);
 
   useEffect(() => {
-    const defaultVal = _.reduce(
+    const defaultVal = reduce(
       sideRoutes,
       (arr, val) => {
         arr[val.name] = false;
