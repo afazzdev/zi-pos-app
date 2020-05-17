@@ -12,12 +12,17 @@ export type ISideRoutesChildren = {
 export type ISideRoutes = {
   [key: string]: {
     name: string;
+    path?: string;
     icon?: ReactNode;
     children?: ISideRoutesChildren;
   };
 };
 
 export const sideRoutes: ISideRoutes = {
+  dashboard: {
+    name: 'dashboard',
+    path: '/dashboard',
+  },
   transaction: {
     name: 'transaction',
     icon: createElement(Store),
