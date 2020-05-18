@@ -2,6 +2,9 @@
   "app": {
     "title": "ZI-POS-APP english"
   },
+  "time": {
+    "month": "month"
+  },
   "sideBar": {
     "dashboard": "dashboard",
     "transaction": "transaction",
@@ -10,5 +13,10 @@
     "cashier": "cashier",
     "cashierNames": "cashier names",
     "owner": "owner"
+  },
+  "dashboard": {
+    "charts": {
+      "title": "Transaction this {{ time }}"
+    }
   }
 }

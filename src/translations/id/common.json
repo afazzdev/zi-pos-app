@@ -2,6 +2,9 @@
   "app": {
     "title": "ZI-POS-APP indonesia"
   },
+  "time": {
+    "month": "bulan"
+  },
   "sideBar": {
     "dashboard": "dashboard",
     "transaction": "transaksi",
@@ -10,5 +13,10 @@
     "cashier": "kasir",
     "cashierNames": "nama kasir",
     "owner": "pemilik"
+  },
+  "dashboard": {
+    "charts": {
+      "title": "Transaksi {{ time }} ini"
+    }
   }
 }
