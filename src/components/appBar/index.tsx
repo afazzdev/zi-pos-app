@@ -27,7 +27,7 @@ const AppBar = ({ width, children }: IProps) => {
     <>
       <AppBarMaterial
         position='fixed'
-        color='transparent'
+        color='default'
         className={classes.appBarMaterial}
       >
         <Toolbar>
