@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { reduce } from 'lodash';
-import { createCtx } from './createCtx';
-import { useSideRoutesContext } from './sideRoutes';
+import { createCtx } from '../utils/createCtx';
+import { useSideRoutesContext } from './sideRoutesContext';
 
 export interface ISideBar {
   [key: string]: boolean | undefined;

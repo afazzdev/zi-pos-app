@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Layout from '../../components/layout';
-import { useSideRoutesContext } from '../../contexts/sideRoutes';
+import { useSideRoutesContext } from '../../contexts/sideRoutesContext';
 import Loader from '../../components/loader';
 // import Dashboard from './Dashboard';
 const Dashboard = React.lazy(() => import('./Dashboard'));

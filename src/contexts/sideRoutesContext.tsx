@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { createCtx } from './createCtx';
+import { createCtx } from '../utils/createCtx';
 import { sideRoutes, ISideRoutes } from '../data/sideRoutes';
 
 const [ctx, SideRoutesContextProvider] = createCtx<ISideRoutes>(sideRoutes);

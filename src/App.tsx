@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import IndexStyles from './styles';
 import Routes from './routes';
 import SideBarProvider from './contexts/sideBarContext';
-import SideRoutesProvider from './contexts/sideRoutes';
+import SideRoutesProvider from './contexts/sideRoutesContext';
 
 function App() {
   return (
