@@ -3,10 +3,10 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Layout from '../../components/layout';
 import { useSideRoutesContext } from '../../contexts/sideRoutes';
 import Loader from '../../components/loader';
-// import DashboardHome from './Dashboard';
-const DashboardHome = React.lazy(() => import('./Dashboard'));
+// import Dashboard from './Dashboard';
+const Dashboard = React.lazy(() => import('./Dashboard'));
 
-const Dashboard = () => {
+const IndexDashboard = () => {
   const [sidebar] = useSideRoutesContext();
   return (
     <Layout sidebar={sidebar}>
@@ -19,7 +19,7 @@ const Dashboard = () => {
             render={() => <div>cashier-names</div>}
           />
           <Route path='/dashboard/owner' render={() => <div>owner</div>} />
-          <Route exact path='/dashboard' component={DashboardHome} />
+          <Route exact path='/dashboard' component={Dashboard} />
           <Redirect to='/dashboard' />
         </Switch>
       </Suspense>
@@ -27,4 +27,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default IndexDashboard;

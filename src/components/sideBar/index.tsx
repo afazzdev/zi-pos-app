@@ -64,41 +64,41 @@ const SideBar = ({ width, sidebar }: IProps) => {
         anchor='left'
       >
         <div className={classes.toolbar} />
-        {Object.values(sidebar).map((el) => {
-          if (!el.children && el.path) {
+        {Object.values(sidebar).map((parent) => {
+          if (!parent.children && parent.path) {
             return (
               <ListChild
-                key={el.name}
-                name={t(`sideBar.${el.name}`)}
-                path={el.path}
-                icon={el.icon}
+                key={parent.name}
+                name={t(`sideBar.${parent.name}`)}
+                path={parent.path}
+                icon={parent.icon}
                 variant='button'
               />
             );
           }
           return (
-            <Fragment key={el.name}>
-              <ListItem button onClick={handleClick(el.name)} disableRipple>
-                {el.icon && <ListItemIcon>{el.icon}</ListItemIcon>}
+            <Fragment key={parent.name}>
+              <ListItem button onClick={handleClick(parent.name)} disableRipple>
+                {parent.icon && <ListItemIcon>{parent.icon}</ListItemIcon>}
                 <ListItemText
-                  primary={t(`sideBar.${el.name}`)}
+                  primary={t(`sideBar.${parent.name}`)}
                   primaryTypographyProps={{ variant: 'button' }}
                 />
-                {open[el.name] ? <ExpandLess /> : <ExpandMore />}
+                {open[parent.name] ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
-              {el.children && (
+              {parent.children && (
                 <List>
-                  {Object.values(el.children).map((el2) => (
+                  {Object.values(parent.children).map((child) => (
                     <Collapse
-                      key={el2.name}
-                      in={open[el.name]}
+                      key={child.name}
+                      in={open[parent.name]}
                       timeout='auto'
                       unmountOnExit
                     >
                       <ListChild
-                        name={t(`sideBar.${el2.name}`)}
-                        path={el2.path}
-                        icon={el2.icon}
+                        name={t(`sideBar.${child.name}`)}
+                        path={child.path}
+                        icon={child.icon}
                         variant='body2'
                       />
                     </Collapse>
