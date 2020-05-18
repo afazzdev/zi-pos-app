@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import { MenuItem, FormControl, Select } from '@material-ui/core';
+import { Language } from '@material-ui/icons';
 
 import { useTranslation } from 'react-i18next';
 
@@ -16,6 +14,15 @@ const useStyles = makeStyles((theme: Theme) =>
     formControl: {
       margin: theme.spacing(1),
       minWidth: 0,
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      '& > *': {
+        marginLeft: '.5rem',
+      },
+    },
+    lang: {
+      marginLeft: 'auto',
     },
   })
 );
@@ -41,12 +48,19 @@ function TranslationButton() {
   };
 
   useEffect(() => {
+    if (localStorage.getItem('lang')) {
+      setLang(localStorage.getItem('lang') as string);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('lang', lang);
     i18n.changeLanguage(lang);
   }, [lang, i18n]);
 
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel id='translation-select-label'>Lang</InputLabel>
+      <Language className={classes.lang} />
       <Select
         labelId='translation-select-label'
         id='translation-select'
@@ -57,7 +71,9 @@ function TranslationButton() {
         onChange={handleChange}
       >
         {translations.map((translation) => (
-          <MenuItem value={translation}>{translation}</MenuItem>
+          <MenuItem key={translation} value={translation}>
+            {translation}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>

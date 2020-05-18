@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Layout from '../../components/layout';
 import { useSideRoutesContext } from '../../contexts/sideRoutes';
 import Loader from '../../components/loader';
+// import DashboardHome from './Dashboard';
 const DashboardHome = React.lazy(() => import('./Dashboard'));
 
 const Dashboard = () => {

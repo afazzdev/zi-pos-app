@@ -1,5 +1,14 @@
 {
   "app": {
     "title": "ZI-POS-APP indonesia"
+  },
+  "sideBar": {
+    "dashboard": "dashboard",
+    "transaction": "transaksi",
+    "buy": "beli",
+    "sell": "jual",
+    "cashier": "kasir",
+    "cashierNames": "nama kasir",
+    "owner": "pemilik"
   }
 }

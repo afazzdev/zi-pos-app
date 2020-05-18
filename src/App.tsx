@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import IndexStyles from './styles';
 import Routes from './routes';
-import DrawerProvider from './contexts/drawerContext';
+import SideBarProvider from './contexts/sideBarContext';
 import SideRoutesProvider from './contexts/sideRoutes';
 
 function App() {
@@ -10,9 +10,9 @@ function App() {
     <BrowserRouter>
       <IndexStyles>
         <SideRoutesProvider>
-          <DrawerProvider>
+          <SideBarProvider>
             <Routes />
-          </DrawerProvider>
+          </SideBarProvider>
         </SideRoutesProvider>
       </IndexStyles>
     </BrowserRouter>

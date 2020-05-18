@@ -43,7 +43,7 @@ export const sideRoutes: ISideRoutes = {
     name: 'cashier',
     children: {
       member: {
-        name: 'cashier-names',
+        name: 'cashierNames',
         path: '/dashboard/cashier-names',
       },
       owner: {

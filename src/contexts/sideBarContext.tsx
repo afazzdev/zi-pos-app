@@ -3,7 +3,7 @@ import { reduce } from 'lodash';
 import { createCtx } from './createCtx';
 import { useSideRoutesContext } from './sideRoutes';
 
-export interface IDrawer {
+export interface ISideBar {
   [key: string]: boolean | undefined;
 }
 
@@ -11,8 +11,8 @@ type IDefaultValue = { [key: string]: boolean };
 
 const sidebar = localStorage.getItem('sidebar');
 
-const [ctx, DrawerContextProvider] = createCtx<IDrawer>({});
-export const useDrawerContext = () => {
+const [ctx, SideBarContextProvider] = createCtx<ISideBar>({});
+export const useSideBarContext = () => {
   const [sideRoutes] = useSideRoutesContext();
   const { state, update } = useContext(ctx);
 
@@ -41,8 +41,8 @@ export const useDrawerContext = () => {
   return [state, update] as const;
 };
 
-const DrawerProvider = ({ children }: { children: React.ReactChild }) => {
-  return <DrawerContextProvider>{children}</DrawerContextProvider>;
+const SideBarProvider = ({ children }: { children: React.ReactChild }) => {
+  return <SideBarContextProvider>{children}</SideBarContextProvider>;
 };
 
-export default DrawerProvider;
+export default SideBarProvider;

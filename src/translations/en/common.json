@@ -1,5 +1,14 @@
 {
   "app": {
     "title": "ZI-POS-APP english"
+  },
+  "sideBar": {
+    "dashboard": "dashboard",
+    "transaction": "transaction",
+    "buy": "buy",
+    "sell": "sell",
+    "cashier": "cashier",
+    "cashierNames": "cashier names",
+    "owner": "owner"
   }
 }

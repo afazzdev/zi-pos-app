@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import {
-  Drawer as DrawerMaterial,
+  Drawer,
   List,
   ListItem,
   ListItemText,
@@ -9,7 +9,8 @@ import {
   ListItemIcon,
 } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
-import { useDrawerContext, IDrawer } from '../../contexts/drawerContext';
+import { useTranslation } from 'react-i18next';
+import { useSideBarContext, ISideBar } from '../../contexts/sideBarContext';
 import { ISideRoutes } from '../../data/sideRoutes';
 import { ListChild } from '../list';
 
@@ -23,11 +24,11 @@ type IProps = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    drawer: ({ width }: IPropsWidth) => ({
+    sideBar: ({ width }: IPropsWidth) => ({
       width: width,
       flexShrink: 0,
     }),
-    drawerPaper: ({ width }: IPropsWidth) => ({
+    sideBarPaper: ({ width }: IPropsWidth) => ({
       width: width,
     }),
     // necessary for content to be below app bar
@@ -38,13 +39,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Drawer = ({ width, sidebar }: IProps) => {
+const SideBar = ({ width, sidebar }: IProps) => {
   const classes = useStyles({ width });
-  const [open, setOpen] = useDrawerContext();
+  const [open, setOpen] = useSideBarContext();
+  const { t } = useTranslation();
 
   const handleClick = (name: string): any => () => {
     // console.log(name);
-    return setOpen({ ...open, [name]: !open[name] } as IDrawer);
+    return setOpen({ ...open, [name]: !open[name] } as ISideBar);
   };
 
   // React.useEffect(() => {
@@ -53,11 +55,11 @@ const Drawer = ({ width, sidebar }: IProps) => {
 
   return (
     <>
-      <DrawerMaterial
-        className={classes.drawer}
+      <Drawer
+        className={classes.sideBar}
         variant='permanent'
         classes={{
-          paper: classes.drawerPaper,
+          paper: classes.sideBarPaper,
         }}
         anchor='left'
       >
@@ -67,7 +69,7 @@ const Drawer = ({ width, sidebar }: IProps) => {
             return (
               <ListChild
                 key={el.name}
-                name={el.name}
+                name={t(`sideBar.${el.name}`)}
                 path={el.path}
                 icon={el.icon}
                 variant='button'
@@ -79,7 +81,7 @@ const Drawer = ({ width, sidebar }: IProps) => {
               <ListItem button onClick={handleClick(el.name)} disableRipple>
                 {el.icon && <ListItemIcon>{el.icon}</ListItemIcon>}
                 <ListItemText
-                  primary={el.name}
+                  primary={t(`sideBar.${el.name}`)}
                   primaryTypographyProps={{ variant: 'button' }}
                 />
                 {open[el.name] ? <ExpandLess /> : <ExpandMore />}
@@ -94,7 +96,7 @@ const Drawer = ({ width, sidebar }: IProps) => {
                       unmountOnExit
                     >
                       <ListChild
-                        name={el2.name}
+                        name={t(`sideBar.${el2.name}`)}
                         path={el2.path}
                         icon={el2.icon}
                         variant='body2'
@@ -106,9 +108,9 @@ const Drawer = ({ width, sidebar }: IProps) => {
             </Fragment>
           );
         })}
-      </DrawerMaterial>
+      </Drawer>
     </>
   );
 };
 
-export default Drawer;
+export default SideBar;

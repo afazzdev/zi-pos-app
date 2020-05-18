@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '../drawer';
+import SideBar from '../sideBar';
 import AppBar from '../appBar';
 import { ISideRoutes } from '../../data/sideRoutes';
 
@@ -37,7 +37,7 @@ function Layout({ children, sidebar }: ILayoutProps) {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar width={drawerWidth} />
-      <Drawer width={drawerWidth} sidebar={sidebar} />
+      <SideBar width={drawerWidth} sidebar={sidebar} />
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {children}
