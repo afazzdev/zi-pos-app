@@ -8,52 +8,16 @@ import {
 } from '@material-ui/icons';
 import { ButtonGroup } from '../button';
 
-const LineChart = ({ time = 'bulan' }: { time: string | number }) => {
+const LineChart = ({
+  title,
+  data,
+  options,
+}: {
+  title?: string;
+  data?: any;
+  options?: any;
+}) => {
   const [chartType, setChartType] = React.useState('LINE');
-  const data = {
-    labels: [
-      'jan',
-      'feb',
-      'mar',
-      'apr',
-      'may',
-      'jun',
-      'jul',
-      'aug',
-      'sep',
-      'oct',
-      'nov',
-      'des',
-    ],
-    datasets: [
-      {
-        label: 'label',
-        data: [9, 4, 3, 4, 5, 4, 7],
-        // borderColor: ['rgba(144, 0, 144, 0.5)'],
-        // backgroundColor: ['rgba(144, 0, 144, 0.5)'],
-        // pointBackgroundColor: ['rgba(144, 0, 144, 0.5)'],
-        // pointBorderColor: ['rgba(144, 0, 144, 0.5)'],
-      },
-    ],
-  };
-
-  const options = {
-    // title: {
-    //   display: true,
-    //   text: 'Penjualan bulan ini',
-    // },
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            min: 0,
-            stepSize: 2,
-          },
-        },
-      ],
-    },
-    maintainAspectRatio: false,
-  };
 
   const Chart = () => {
     switch (chartType) {
@@ -71,7 +35,7 @@ const LineChart = ({ time = 'bulan' }: { time: string | number }) => {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant='h5'>Penjualan {time} ini</Typography>
+        <Typography variant='h5'>{title}</Typography>
         <ButtonGroup
           data={[
             {

@@ -2,7 +2,10 @@ import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Typography, Paper } from '@material-ui/core';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 import { Charts } from '../chart';
+import { ButtonGroup } from '../button';
+import { useDashboardContext } from '../../contexts/dashboardContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,17 +43,45 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const DashboardComp = () => {
   const classes = useStyles();
+  const [t] = useTranslation();
+  const [dashboardCtx] = useDashboardContext();
+  const { charts } = dashboardCtx;
+  const [state, setState] = React.useState('MONTH');
 
   return (
     <Grid container direction='column'>
-      <Grid item container>
-        <Typography variant='h3'>DashboardComp</Typography>
-        <Typography variant='body2'>senin, 18 may 2020</Typography>
+      <Grid item container justify='space-between'>
+        <Typography variant='h3'>Dashboard</Typography>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <ButtonGroup
+            data={[
+              {
+                name: 'WEEK',
+                child: 'Week',
+              },
+              {
+                name: 'MONTH',
+                child: 'Month',
+              },
+              {
+                name: 'YEAR',
+                child: 'year',
+              },
+            ]}
+            onClick={setState}
+            isOn={state}
+          />
+        </div>
+        {/* <Typography variant='body2'>senin, 18 may 2020</Typography> */}
       </Grid>
       <div className={classes.container}>
         {/* Chart module */}
         <Paper className={clsx(classes.globalPadding, classes.chart)}>
-          <Charts time='bulan' />
+          <Charts
+            title={t('dashboard.charts.title', { time: t('time.month') })}
+            data={charts.data}
+            options={charts.options}
+          />
         </Paper>
         {/* In-progress */}
         <Paper className={clsx(classes.globalPadding, classes.data)}>
