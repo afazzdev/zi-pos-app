@@ -2,18 +2,15 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import IndexStyles from './styles';
 import Routes from './routes';
-import SideBarProvider from './contexts/sideBarContext';
-import SideRoutesProvider from './contexts/sideRoutesContext';
+import CombineContext from './contexts';
 
 function App() {
   return (
     <BrowserRouter>
       <IndexStyles>
-        <SideRoutesProvider>
-          <SideBarProvider>
-            <Routes />
-          </SideBarProvider>
-        </SideRoutesProvider>
+        <CombineContext>
+          <Routes />
+        </CombineContext>
       </IndexStyles>
     </BrowserRouter>
   );
