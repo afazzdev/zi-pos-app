@@ -3,7 +3,13 @@
     "title": "ZI-POS-APP english"
   },
   "time": {
-    "month": "month"
+    "second": "second",
+    "minute": "minute",
+    "hour": "hour",
+    "day": "day",
+    "week": "week",
+    "month": "month",
+    "year": "year"
   },
   "sideBar": {
     "dashboard": "dashboard",
@@ -12,7 +18,10 @@
     "sell": "sell",
     "cashier": "cashier",
     "cashierNames": "cashier names",
-    "owner": "owner"
+    "owner": "owner",
+    "setting": "setting",
+    "general": "general",
+    "profile": "profile"
   },
   "dashboard": {
     "charts": {

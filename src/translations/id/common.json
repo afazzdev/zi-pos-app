@@ -3,7 +3,13 @@
     "title": "ZI-POS-APP indonesia"
   },
   "time": {
-    "month": "bulan"
+    "second": "detik",
+    "minute": "menit",
+    "hour": "jam",
+    "day": "hari",
+    "week": "minggu",
+    "month": "bulan",
+    "year": "tahun"
   },
   "sideBar": {
     "dashboard": "dashboard",
@@ -12,7 +18,10 @@
     "sell": "jual",
     "cashier": "kasir",
     "cashierNames": "nama kasir",
-    "owner": "pemilik"
+    "owner": "pemilik",
+    "setting": "pengaturan",
+    "general": "umum",
+    "profile": "profil"
   },
   "dashboard": {
     "charts": {

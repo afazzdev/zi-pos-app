@@ -1,5 +1,11 @@
 import { createElement, ReactNode } from 'react';
-import { Store, ShoppingCart, Receipt } from '@material-ui/icons';
+import {
+  Store,
+  ShoppingCart,
+  Receipt,
+  Dashboard,
+  Settings,
+} from '@material-ui/icons';
 
 export type ISideRoutesChildren = {
   [key: string]: {
@@ -22,6 +28,7 @@ export const sideRoutes: ISideRoutes = {
   dashboard: {
     name: 'dashboard',
     path: '/dashboard',
+    icon: createElement(Dashboard),
   },
   transaction: {
     name: 'transaction',
@@ -49,6 +56,20 @@ export const sideRoutes: ISideRoutes = {
       owner: {
         name: 'owner',
         path: '/dashboard/owner',
+      },
+    },
+  },
+  setting: {
+    name: 'setting',
+    icon: createElement(Settings),
+    children: {
+      general: {
+        name: 'general',
+        path: '/dashboard/setting/general',
+      },
+      profile: {
+        name: 'profile',
+        path: '/dashboard/setting/profile',
       },
     },
   },
