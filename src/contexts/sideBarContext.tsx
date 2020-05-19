@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import { reduce } from 'lodash';
 import { createCtx } from '../utils/createCtx';
 import { useSideRoutesContext } from './sideRoutesContext';
 
@@ -24,13 +23,12 @@ export const useSideBarContext = () => {
       defaultVal = JSON.parse(sidebar || '');
     } else {
       // DO NOT REMOVE THIS LINE. if you remove this line then undefined error will occur
-      defaultVal = reduce(
-        sideRoutes,
+      defaultVal = Object.values(sideRoutes).reduce<IDefaultValue>(
         (arr, val) => {
           arr[val.name] = false;
           return arr;
         },
-        {} as IDefaultValue
+        {}
       );
     }
 
