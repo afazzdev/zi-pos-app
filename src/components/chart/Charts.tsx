@@ -8,15 +8,13 @@ import {
 } from '@material-ui/icons';
 import { ButtonGroup } from '../button';
 
-const LineChart = ({
-  title,
-  data,
-  options,
-}: {
-  title?: string;
-  data?: any;
-  options?: any;
-}) => {
+type IChartsProps = {
+  title: string;
+  data: any;
+  options: any;
+};
+
+const Charts = ({ title, data, options }: IChartsProps) => {
   const [chartType, setChartType] = React.useState('LINE');
 
   const Chart = () => {
@@ -62,4 +60,4 @@ const LineChart = ({
   );
 };
 
-export default LineChart;
+export default Charts;
