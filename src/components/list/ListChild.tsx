@@ -21,10 +21,19 @@ type IListChild = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     nested: {
-      paddingLeft: theme.spacing(4),
+      marginRight: theme.spacing(3),
+      borderRadius: '0 2rem 2rem 0',
+      transition: theme.transitions.create('margin'),
+      '&:hover': {
+        marginRight: theme.spacing(2),
+        background: theme.palette.grey[200],
+      },
     },
     activeLink: {
-      color: 'red',
+      '& > *': {
+        marginRight: theme.spacing(3),
+        background: theme.palette.grey[100],
+      },
     },
   })
 );
@@ -32,18 +41,20 @@ const useStyles = makeStyles((theme: Theme) =>
 const ListChild = ({ name, path, icon, variant }: IListChild) => {
   const classes = useStyles();
   return (
-    <List
-      component={LinkWithRouter}
-      to={path}
-      disablePadding
-      exact
-      activeClassName={classes.activeLink}
-    >
-      <ListItem button className={classes.nested} disableRipple>
-        {icon && <ListItemIcon>{icon}</ListItemIcon>}
-        <ListItemText primary={name} primaryTypographyProps={{ variant }} />
-      </ListItem>
-    </List>
+    <div>
+      <List
+        component={LinkWithRouter}
+        to={path}
+        // disablePadding
+        exact
+        activeClassName={classes.activeLink}
+      >
+        <ListItem button className={classes.nested} disableRipple>
+          {icon && <ListItemIcon>{icon}</ListItemIcon>}
+          <ListItemText primary={name} primaryTypographyProps={{ variant }} />
+        </ListItem>
+      </List>
+    </div>
   );
 };
 
