@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import SideBar from '../sideBar';
 import AppBar from '../appBar';
+import Loader from '../loader';
 import { ISideRoutes } from '../../data/sideRoutes';
+import { Search } from '../textfield';
+
+const TranslationButton = React.lazy(() => import('../translationButton'));
 
 type ILayoutProps = {
   children: React.ReactNode;
@@ -36,7 +40,12 @@ function Layout({ children, sidebar }: ILayoutProps) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar width={drawerWidth} />
+      <AppBar width={drawerWidth}>
+        <Search />
+        <Suspense fallback={<Loader />}>
+          <TranslationButton />
+        </Suspense>
+      </AppBar>
       <SideBar width={drawerWidth} sidebar={sidebar} />
       <main className={classes.content}>
         <div className={classes.toolbar} />
