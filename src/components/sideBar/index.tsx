@@ -1,18 +1,10 @@
 import React, { Fragment } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  Collapse,
-  ListItemIcon,
-} from '@material-ui/core';
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import { Drawer, Collapse } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useSideBarContext, ISideBar } from '../../contexts/sideBarContext';
 import { ISideRoutes } from '../../data/sideRoutes';
-import { ListChild } from '../list';
+import { List } from '../list';
 
 type IPropsWidth = { width: number };
 
@@ -30,6 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
     sideBarPaper: ({ width }: IPropsWidth) => ({
       width: width,
+      overflowX: 'hidden',
     }),
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
@@ -46,7 +39,13 @@ const SideBar = ({ width, sidebar }: IProps) => {
 
   const handleClick = (name: string): any => () => {
     // console.log(name);
-    return setOpen({ ...open, [name]: !open[name] } as ISideBar);
+    if (name === 'dashboard') {
+      // if dashboard then save previous opened list
+      return setOpen({ ...open, [name]: !open[name] } as ISideBar);
+    } else {
+      // if not then change to new value
+      return setOpen({ [name]: !open[name] } as ISideBar);
+    }
   };
 
   // React.useEffect(() => {
@@ -65,46 +64,49 @@ const SideBar = ({ width, sidebar }: IProps) => {
       >
         <div className={classes.toolbar} />
         {Object.values(sidebar).map((parent) => {
+          // This is for List who don't have a child(ren)
           if (!parent.children && parent.path) {
             return (
-              <ListChild
+              <List
                 key={parent.name}
                 name={t(`sideBar.${parent.name}`)}
                 path={parent.path}
                 icon={parent.icon}
                 variant='button'
+                parent
+                onClick={handleClick(parent.name)}
               />
             );
           }
+          // This for list and have a child(ren)
           return (
             <Fragment key={parent.name}>
-              <ListItem button onClick={handleClick(parent.name)} disableRipple>
-                {parent.icon && <ListItemIcon>{parent.icon}</ListItemIcon>}
-                <ListItemText
-                  primary={t(`sideBar.${parent.name}`)}
-                  primaryTypographyProps={{ variant: 'button' }}
-                />
-                {open[parent.name] ? <ExpandLess /> : <ExpandMore />}
-              </ListItem>
-              {parent.children && (
-                <List>
-                  {Object.values(parent.children).map((child) => (
-                    <Collapse
-                      key={child.name}
-                      in={open[parent.name]}
-                      timeout='auto'
-                      unmountOnExit
-                    >
-                      <ListChild
-                        name={t(`sideBar.${child.name}`)}
-                        path={child.path}
-                        icon={child.icon}
-                        variant='body2'
-                      />
-                    </Collapse>
-                  ))}
-                </List>
-              )}
+              <List
+                name={t(`sideBar.${parent.name}`)}
+                path={parent.path}
+                icon={parent.icon}
+                parent
+                onClick={handleClick(parent.name)}
+                variant='button'
+                isActive={open[parent.name]}
+              />
+              {/* Hidden child(ren) */}
+              {parent.children &&
+                Object.values(parent.children).map((child) => (
+                  <Collapse
+                    key={child.name}
+                    in={open[parent.name]}
+                    timeout='auto'
+                    unmountOnExit
+                  >
+                    <List
+                      name={t(`sideBar.${child.name}`)}
+                      path={child.path}
+                      icon={child.icon}
+                      variant='body2'
+                    />
+                  </Collapse>
+                ))}
             </Fragment>
           );
         })}

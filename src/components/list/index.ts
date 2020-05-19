@@ -1,3 +1,3 @@
-import ListChild from './ListChild';
+import List from './List';
 
-export { ListChild };
+export { List };

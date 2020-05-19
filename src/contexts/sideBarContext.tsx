@@ -18,9 +18,12 @@ export const useSideBarContext = () => {
 
   useEffect(() => {
     let defaultVal;
-    if (sidebar) {
+    // check if the last opened link is /dashboard or not
+    // if /dashboard  then return else so the hidden list will hidden
+    if (sidebar && !JSON.parse(sidebar || '').dashboard) {
       defaultVal = JSON.parse(sidebar || '');
     } else {
+      // DO NOT REMOVE THIS LINE. if you remove this line then undefined error will occur
       defaultVal = reduce(
         sideRoutes,
         (arr, val) => {
@@ -35,6 +38,7 @@ export const useSideBarContext = () => {
   }, [sideRoutes, update]);
 
   useEffect(() => {
+    // save every change to localStorage for persisting the value
     localStorage.setItem('sidebar', JSON.stringify(state));
   }, [state]);
 
