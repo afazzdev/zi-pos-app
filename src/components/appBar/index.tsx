@@ -1,15 +1,11 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import AppBarMaterial from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Loader from '../loader';
-const TranslationButton = React.lazy(() => import('../translationButton'));
+import { AppBar as AppBarMaterial, Toolbar, Grid } from '@material-ui/core';
 
 type IPropsWidth = { width: number };
 type IProps = {
   width: IPropsWidth['width'];
-  children?: React.ReactChild;
+  children?: React.ReactNode;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -18,6 +14,11 @@ const useStyles = makeStyles((theme: Theme) =>
       width: `calc(100% - ${width}px)`,
       marginLeft: width,
     }),
+    children: {
+      flex: 1,
+      display: 'flex',
+      alignItems: 'center',
+    },
   })
 );
 
@@ -31,12 +32,9 @@ const AppBar = ({ width, children }: IProps) => {
         className={classes.appBarMaterial}
       >
         <Toolbar>
-          <Typography variant='h6' noWrap>
-            {children}
-          </Typography>
-          <Suspense fallback={<Loader />}>
-            <TranslationButton />
-          </Suspense>
+          <Grid container>
+            <div className={classes.children}>{children}</div>
+          </Grid>
         </Toolbar>
       </AppBarMaterial>
     </>
