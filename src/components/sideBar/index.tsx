@@ -39,13 +39,13 @@ const SideBar = ({ width, sidebar }: IProps) => {
 
   const handleClick = (name: string): any => () => {
     // console.log(name);
-    if (name === 'dashboard') {
-      // if dashboard then save previous opened list
-      return setOpen({ ...open, [name]: !open[name] } as ISideBar);
-    } else {
-      // if not then change to new value
-      return setOpen({ [name]: !open[name] } as ISideBar);
-    }
+    // if (name === 'dashboard') {
+    //   // if dashboard then save previous opened list
+    //   return setOpen({ ...open, [name]: !open[name] } as ISideBar);
+    // } else {
+    // if not then change to new value
+    return setOpen({ [name]: !open[name] } as ISideBar);
+    // }
   };
 
   // React.useEffect(() => {
