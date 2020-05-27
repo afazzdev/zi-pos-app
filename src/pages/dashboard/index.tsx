@@ -3,8 +3,26 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Layout from '../../components/layout';
 import { useSideRoutesContext } from '../../contexts/sideRoutesContext';
 import Loader from '../../components/loader';
-// import Dashboard from './Dashboard';
-const Dashboard = React.lazy(() => import('./Dashboard'));
+
+const helperProps = (el: any) => {
+  let props = {};
+  if (el.render) {
+    props = {
+      path: el.path,
+      render: el.render,
+      exact: true,
+    };
+  }
+  if (el.component) {
+    props = {
+      path: el.path,
+      component: el.component,
+      exact: true,
+    };
+  }
+
+  return { ...props };
+};
 
 const IndexDashboard = () => {
   const [sidebar] = useSideRoutesContext();
@@ -12,14 +30,15 @@ const IndexDashboard = () => {
     <Layout sidebar={sidebar}>
       <Suspense fallback={<Loader />}>
         <Switch>
-          <Route path='/dashboard/buy' render={() => <div>Buy</div>} />
-          <Route path='/dashboard/sell' render={() => <div>sell</div>} />
-          <Route
-            path='/dashboard/cashier-names'
-            render={() => <div>cashier-names</div>}
-          />
-          <Route path='/dashboard/owner' render={() => <div>owner</div>} />
-          <Route exact path='/dashboard' component={Dashboard} />
+          {Object.values(sidebar).map((side) => {
+            if (!side.children) {
+              return <Route {...helperProps(side)} />;
+            }
+
+            return Object.values(side.children).map((child) => {
+              return <Route {...helperProps(child)} />;
+            });
+          })}
           <Redirect to='/dashboard' />
         </Switch>
       </Suspense>
