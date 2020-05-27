@@ -21,7 +21,8 @@
     "owner": "owner",
     "setting": "setting",
     "general": "general",
-    "profile": "profile"
+    "profile": "profile",
+    "goods": "goods"
   },
   "dashboard": {
     "charts": {

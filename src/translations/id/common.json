@@ -21,7 +21,8 @@
     "owner": "pemilik",
     "setting": "pengaturan",
     "general": "umum",
-    "profile": "profil"
+    "profile": "profil",
+    "goods": "Barang-barang"
   },
   "dashboard": {
     "charts": {
